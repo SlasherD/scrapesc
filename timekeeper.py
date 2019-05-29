@@ -1,10 +1,12 @@
 ######### Cyan #########
 ### Basic timekeeper ###
 
+from functools import wraps
 from time import perf_counter as _time
 
 
 def timekeeper(func):
+    @wraps(func)
     def wrapper():
         start = _time()
         func()
