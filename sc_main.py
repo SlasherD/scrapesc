@@ -16,22 +16,25 @@ def main():
                         help='Specify to retrieve artwork')
     parser.add_argument('-d', '--getdesc', action='store_true', 
                         help='Specify to retrieve description')
-    parser.add_argument('-n', '--artist',
+    parser.add_argument('-n', '--artistname',
                         help="""
                             Provide artist name, if missing from title.
                             Use quotation marks <""> if string contains whitespaces.
+                            """)
+    parser.add_argument('-o', '--overwrite',
+                        help="""
+                            Choose to manually overwrite filename (if current text is problematic).
+                            Use quotation marks <""> if string contains whitespaces.
                             """) 
-    arg = parser.parse_args()
-    args = [arg.link, arg.artist, arg.getart, arg.getdesc]
-    # --> TODO: Optional argument for custom file save destination [must implement class method in main]
-    sc = ScrapeSC(args[0], args[1])
+    args = parser.parse_args()
+    sc = ScrapeSC(args.link, args.artistname, args.overwrite)
     try:
         print(sc)
     except UnicodeEncodeError:
         print("Cannot Display :(")
-    if args[2]:
+    if args.getart:
         sc.get_artwork()
-    if args[3]:
+    if args.getdesc:
         sc.get_desc()
     print("File(s) downloaded")
 
