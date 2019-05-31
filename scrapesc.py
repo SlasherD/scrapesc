@@ -25,12 +25,8 @@ class ScrapeSC:
         When a valid SC link is given, 'requests' will fetch the html doc, which is then parsed to
             'BeautifulSoup'.
         """        
-        self.link = link
-        self.artist = artistname
-        if self.link:
-            self.url = self.link            
-        else:
-            self.url = pyperclip.paste()       
+        self.url = link if link else pyperclip.paste()
+        self.artist = artistname     
         if ScrapeSC.S_URL in self.url:
             r = requests.get(self.url)
             self.soup = BeautifulSoup(r.content, 'html.parser')
@@ -38,10 +34,7 @@ class ScrapeSC:
             print(f"Copy a valid SoundCloud link",
                   f"String given: {self.url}", sep='\n')
             sys.exit()
-        if overwrite:
-            self.title = overwrite
-        else:
-            self.title = self.get_title()
+        self.title = overwrite if overwrite else self.get_title()
         self.filename = self.get_full_filename()
 
     
