@@ -98,7 +98,3 @@ class ScrapeSC:
 
     def __repr__(self):
         return f"File(s) saved as {self.filename}[.txt or .png]"
-
-
-# end of class
-# --------------------------------------------------------------------------------------  
