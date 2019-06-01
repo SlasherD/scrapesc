@@ -1,10 +1,10 @@
 ######### Cyan #########
 ## Soundcloud Scraper ##
 
-import os
 import re
 import sys
 import urllib.request
+from pathlib import Path
 from unicodedata import normalize
 
 import pyperclip
@@ -14,7 +14,7 @@ from bs4 import BeautifulSoup
 
 class ScrapeSC:
 
-    MY_PATH = 'C:\\Users\\Dyan\\Desktop\\Musique\\'
+    MY_PATH = Path.home() / 'Desktop/Musique'
     S_URL = 'https://soundcloud.com/'
 
     def __init__(self, link=None, artistname=None, overwrite=None):
@@ -71,12 +71,12 @@ class ScrapeSC:
         """Gets rid of bad characters in filenames"""
         char_list = [':', '"', '*', '/', '|', '\\', '?', '<', '>']
         if any(char in char_list for char in self.title):
-            for char in char_list:
-                filename = self.title.replace(char, '_')
-        else:
             filename = self.title
-        full_filename = os.path.join(ScrapeSC.MY_PATH, filename)
-        return full_filename
+            for char in char_list:
+                filename = filename.replace(char, '_')
+            return ScrapeSC.MY_PATH / filename
+        else:
+            return ScrapeSC.MY_PATH / self.title
 
 
     def get_artwork(self):
@@ -95,6 +95,9 @@ class ScrapeSC:
 
     def __str__(self):
         return f"Title:\n{self.title}"
+
+    def __repr__(self):
+        return f"File(s) saved as {self.filename}[.txt or .png]"
 
 
 # end of class
