@@ -2,6 +2,7 @@
 ## Main interface for SC scraping ##
 
 import argparse
+import asyncio
 
 from scrapesc import ScrapeSC  # --> TODO: build a single package for this + main [use scrapesc]
 from timekeeper import timekeeper
@@ -32,9 +33,18 @@ def main():
         print(sc)
     except UnicodeEncodeError:
         print("Cannot Display :(")
-    if args.getart:
+    if args.getart and args.getdesc:
+        async def _main():
+            loop = asyncio.get_event_loop()
+            future1 = loop.run_in_executor(None, sc.get_artwork)
+            future2 = loop.run_in_executor(None, sc.get_desc)
+            await future1
+            await future2
+        loop = asyncio.get_event_loop()
+        loop.run_until_complete(_main())
+    elif args.getart:
         sc.get_artwork()
-    if args.getdesc:
+    elif args.getdesc:
         sc.get_desc()
     print("File(s) downloaded")
     print(repr(sc))
