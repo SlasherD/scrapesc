@@ -36,10 +36,8 @@ def main():
     if args.getart and args.getdesc:
         async def _main():
             loop = asyncio.get_event_loop()
-            future1 = loop.run_in_executor(None, sc.get_artwork)
-            future2 = loop.run_in_executor(None, sc.get_desc)
-            await future1
-            await future2
+            await loop.run_in_executor(None, sc.get_artwork)
+            await loop.run_in_executor(None, sc.get_desc)
         loop = asyncio.get_event_loop()
         loop.run_until_complete(_main())
     elif args.getart:
