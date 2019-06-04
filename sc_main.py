@@ -50,5 +50,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-
-# TODO: try implementing asyncio at some point
