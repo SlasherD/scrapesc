@@ -98,4 +98,4 @@ class ScrapeSC:
         return f"Title:\n{self.title}"
 
     def __repr__(self):
-        return f"File(s) saved as {self.filename}[.txt or .png]"
+        return f"File(s) saved as {self.filename}[.txt and/or .png]"

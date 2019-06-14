@@ -45,7 +45,7 @@ def main():
     elif args.getdesc:
         sc.get_desc()
     print("File(s) downloaded")
-    print(repr(sc))
+    #print(repr(sc))
 
 
 if __name__ == '__main__':
